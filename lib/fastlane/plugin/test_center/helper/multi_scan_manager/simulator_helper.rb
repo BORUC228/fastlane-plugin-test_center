@@ -32,7 +32,7 @@ module TestCenter
 
           run_count = @options[:parallel_testrun_count] || 0
           destinations = Scan.config[:destination].clone
-          original_simulators = FastlaneCore::DeviceManager.simulators('iOS').find_all do |simulator|
+          original_simulators = FastlaneCore::DeviceManager.simulators('iOS').find_all && FastlaneCore::DeviceManager.simulators('tvOS').find_all do |simulator|
             found_simulator = destinations.find do |destination|
               simulator_matches_destination(simulator, destination)
             end
@@ -59,7 +59,7 @@ module TestCenter
         end
 
         def delete_multi_scan_cloned_simulators
-          FastlaneCore::DeviceManager.simulators('iOS').each do |simulator|
+          FastlaneCore::DeviceManager.simulators('iOS').each && FastlaneCore::DeviceManager.simulators('tvOS').each do |simulator|
             simulator.delete if /#{self.class.name}<\d+>/ =~ simulator.name
           end
         end

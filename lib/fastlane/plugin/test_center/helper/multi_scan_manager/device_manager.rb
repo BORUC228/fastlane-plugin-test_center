@@ -20,7 +20,7 @@ module FastlaneCore
 
       def boot
         return unless is_simulator
-        return unless os_type == "iOS"
+        return unless os_type == 'iOS' || os_type == 'tvOS'
         return if self.state == 'Booted'
 
         UI.message("Booting #{self}")
@@ -31,7 +31,7 @@ module FastlaneCore
 
       def shutdown
         return unless is_simulator
-        return unless os_type == "iOS"
+        return unless os_type == 'iOS' || os_type == 'tvOS'
         return if self.state == 'Shutdown'
 
         UI.message("Shutting down #{self.udid}")

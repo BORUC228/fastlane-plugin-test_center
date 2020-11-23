@@ -36,7 +36,7 @@ module Fastlane
         else
           coerce_destination_to_array(params)
           platform = :mac
-          platform = :ios_simulator if Scan.config[:destination].any? { |d| d.include?('platform=iOS Simulator') }
+          platform = :ios_simulator if Scan.config[:destination].any? { |d| d.include?('platform=iOS Simulator') } || :tvos_simulator if Scan.config[:destination].any? { |d| d.include?('platform=tvOS Simulator') }
 
           runner_options = params.values.merge(platform: platform)
           runner = ::TestCenter::Helper::MultiScanManager::Runner.new(runner_options)
@@ -549,6 +549,7 @@ module Fastlane
             scheme: 'AtomicBoy',
             fail_build: false,
             try_count: 2,
+            device: iPhone 8 (13.7),
             disable_xcpretty: true
           )
           ",
