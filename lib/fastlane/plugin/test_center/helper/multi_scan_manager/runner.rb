@@ -41,7 +41,7 @@ module TestCenter
         def setup_logcollection
           FastlaneCore::UI.verbose("> setup_logcollection")
           return unless @options[:include_simulator_logs]
-          return unless @options[:platform] == :ios_simulator
+          return unless @options[:platform] == :ios_simulator || @options[:platform] == :tvos_simulator
           return if Scan::Runner.method_defined?(:prelaunch_simulators)
 
           # We need to prelaunch the simulators so xcodebuild
@@ -112,7 +112,7 @@ module TestCenter
 
         def setup_run_tests_for_each_device
           original_output_directory = @options.fetch(:output_directory, 'test_results') 
-          unless @options[:platform] == :ios_simulator
+          unless @options[:platform] == :ios_simulator || @options[:platform] == :tvos_simulator
             yield
             return
           end
